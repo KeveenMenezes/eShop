@@ -12,17 +12,12 @@ public record CreateProductCommand(
 
 public record CreateProductResult(Guid Id);
 
-public class CreatProductCommandHandler
+internal class CreatProductCommandHandler(IDocumentSession session)
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(
         CreateProductCommand command, CancellationToken cancellationToken)
     {
-
-        //TODO: Create product
-        //TODO: Save product
-        //TODO: Return product id
-
         var product = new Product
         (
             Guid.NewGuid(),
@@ -33,7 +28,9 @@ public class CreatProductCommandHandler
             command.categories
         );
 
-        return new CreateProductResult(product.Id);
+        session.Store(product);
+        await session.SaveChangesAsync(cancellationToken);
 
+        return new CreateProductResult(product.Id);
     }
 }

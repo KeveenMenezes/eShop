@@ -8,10 +8,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Service/Catalog/Catalog.API/Catalog.API.csproj", "Service/Catalog/Catalog.API/"]
-RUN dotnet restore "./Service/Catalog/Catalog.API/./Catalog.API.csproj"
+COPY ["Catalog.API.csproj", "."]
+RUN dotnet restore "Catalog.API.csproj"
 COPY . .
-WORKDIR "/src/Catalog.API"
+WORKDIR "/src"
 RUN dotnet build "Catalog.API.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
 
 # Publish the app
