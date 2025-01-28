@@ -4,22 +4,20 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-# Use the official .NET SDK image to build the app
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Catalog.API.csproj", "."]
-RUN dotnet restore "Catalog.API.csproj"
+COPY ["Services/Catalog/Catalog.API/Catalog.API.csproj", "Services/Catalog/Catalog.API/"]
+COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
+RUN dotnet restore "./Services/Catalog/Catalog.API/./Catalog.API.csproj"
 COPY . .
-WORKDIR "/src"
-RUN dotnet build "Catalog.API.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
+WORKDIR "/src/Services/Catalog/Catalog.API"
+RUN dotnet build "./Catalog.API.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
 
-# Publish the app
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Catalog.API.csproj" -c "$BUILD_CONFIGURATION" -o /app/publish
+RUN dotnet publish "./Catalog.API.csproj" -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
-# Use the runtime image to run the app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
