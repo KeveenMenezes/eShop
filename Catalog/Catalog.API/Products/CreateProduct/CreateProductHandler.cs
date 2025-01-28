@@ -33,7 +33,7 @@ public class CreatProductCommandHandler
             command.categories
         );
 
-        return new CreateProductResult(Guid.NewGuid());
+        return new CreateProductResult(product.Id);
 
     }
 }

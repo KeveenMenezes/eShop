@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Carter" />
     <PackageReference Include="Mapster" />
     <PackageReference Include="MediatR" />
   </ItemGroup>
