@@ -11,7 +11,11 @@
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "publish",
@@ -36,6 +40,34 @@
                 "${workspaceFolder}/eShop.sln"
             ],
             "problemMatcher": "$msCompile"
+        },
+        //Docker Compose
+        {
+            "label": "docker-compose up",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": [
+                "-f",
+                "${workspaceFolder}/src/docker-compose.yml",
+                "-f",
+                "${workspaceFolder}/src/docker-compose.override.yml",
+                "up",
+                "-d",
+                "--build"
+            ]
+        },
+        {
+            "label": "docker-compose down",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": [
+                "-f",
+                "${workspaceFolder}/src/docker-compose.yml",
+                "-f",
+                "${workspaceFolder}/src/docker-compose.override.yml",
+                "down"
+            ],
+            "problemMatcher": []
         }
     ]
 }
