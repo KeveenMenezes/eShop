@@ -68,6 +68,23 @@
                 "down"
             ],
             "problemMatcher": []
+        },
+        // Dotnet Build
+        {
+            "label": "dotnet build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Services/Catalog/Catalog.API/Catalog.API.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // Composite Task
+        {
+            "label": "build and docker-compose up",
+            "dependsOn": ["dotnet build", "docker-compose up"],
+            "dependsOrder": "sequence"
         }
     ]
 }

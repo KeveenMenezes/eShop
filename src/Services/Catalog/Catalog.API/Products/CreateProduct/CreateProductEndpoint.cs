@@ -5,7 +5,7 @@ public record CreateProductRequest(
     string Description,
     string ImageFile,
     decimal Price,
-    IEnumerable<string> Categories);
+    List<string> Categories);
 
 public record CreateProductResponse(Guid Id);
 

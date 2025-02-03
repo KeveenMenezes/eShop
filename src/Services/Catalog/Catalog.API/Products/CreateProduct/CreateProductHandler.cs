@@ -5,7 +5,7 @@ public record CreateProductCommand(
     string Description,
     string ImageFile,
     decimal Price,
-    IEnumerable<string> Categories)
+    List<string> Categories)
     : ICommand<CreateProductResult>;
 public record CreateProductResult(Guid Id);
 

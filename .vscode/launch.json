@@ -5,16 +5,16 @@
             "name": "Docker Compose",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "docker-compose up",
+            "preLaunchTask": "build and docker-compose up",
             "postDebugTask": "docker-compose down",
             "program": "${workspaceFolder}/src/Services/Catalog/Catalog.API/bin/Debug/net9.0/Catalog.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/Services/Catalog/Catalog.API",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
+            //"serverReadyAction": {
+            //    "action": "openExternally",
+            //    "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            //},
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
