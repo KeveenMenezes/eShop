@@ -1,11 +1,11 @@
 namespace Catalog.API.Products.CreateProduct;
 
 public record CreateProductRequest(
-    string name,
-    string description,
-    string imageFile,
-    decimal price,
-    List<string> categories);
+    string Name,
+    string Description,
+    string ImageFile,
+    decimal Price,
+    IEnumerable<string> Categories);
 
 public record CreateProductResponse(Guid Id);
 
@@ -23,10 +23,12 @@ public class CreateProductEndpoint : ICarterModule
             var response = result.Adapt<CreateProductResponse>();
 
             return Results.Created($"/products/{response.Id}", response);
-        }).WithName("CreateProduct")
+
+        })
+        .WithName("CreateProduct")
         .Produces<CreateProductResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithSummary("Create Product")
-        .WithDescription("Create a new product");
+        .WithDescription("Create Product");
     }
 }
