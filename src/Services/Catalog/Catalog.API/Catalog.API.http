@@ -19,6 +19,18 @@ Accept: application/json
 ### Get product by id
 GET {{Catalog}}/products/b5de0839-2ca2-4206-910d-f3fb319f9555
 
-
 ### Get product by category
-GET {{Catalog}}/products/category/A1
+GET {{Catalog}}/products/category/A2
+
+### Update product
+PUT {{Catalog}}/products
+Content-Type: application/json
+
+{
+    "id": "b5de0839-2ca2-4206-910d-f3fb319f9555",
+    "name": "Teste 2",
+    "description": "Product Description",
+    "imageFile": "image.jpg",
+    "price": 101,
+    "categories": ["A1", "C2", "A2"]
+}
