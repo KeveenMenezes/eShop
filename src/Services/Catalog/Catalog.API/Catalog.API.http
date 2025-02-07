@@ -9,7 +9,7 @@ Content-Type: application/json
     "description": "Product Description",
     "imageFile": "image.jpg",
     "price": 99.99,
-    "categories": ["A1", "C2"]
+    "categories": ["A1", "C2", "A4"]
 }
 
 ### Get all products
@@ -34,3 +34,6 @@ Content-Type: application/json
     "price": 101,
     "categories": ["A1", "C2", "A2"]
 }
+
+### Delete product
+DELETE {{Catalog}}/products/e1549a96-3bc8-43ea-88be-7c98da4aa189

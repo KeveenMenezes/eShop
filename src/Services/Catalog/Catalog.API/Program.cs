@@ -7,10 +7,12 @@ builder.Services
     {
         config.RegisterServicesFromAssembly(typeof(Program).Assembly);
     })
+    .AddValidatorsFromAssembly(typeof(Program).Assembly)
     .AddMarten(opts =>
     {
         opts.Connection(builder.Configuration.GetConnectionString("Database")!);
-    }).UseLightweightSessions();
+    })
+    .UseLightweightSessions();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
