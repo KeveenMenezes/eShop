@@ -1,6 +1,3 @@
-using BuildingBlocks.Behaviors;
-using Microsoft.AspNetCore.Mvc.DataAnnotations;
-
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
