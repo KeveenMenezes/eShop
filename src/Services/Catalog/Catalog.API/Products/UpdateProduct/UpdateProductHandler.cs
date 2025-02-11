@@ -1,4 +1,3 @@
-
 namespace Catalog.API.Products.UpdateProduct;
 
 public record UpdateProductCommand(
@@ -11,7 +10,26 @@ public record UpdateProductCommand(
 
 public record UpdateProductResult(Guid Id);
 
-public class UpdateProductCommandHandler
+public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
+{
+    public UpdateProductCommandValidator()
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty().WithMessage("Id is required.");
+
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("Name is required.")
+            .Length(3, 100).WithMessage("Name must be between 3 and 100 characters.");
+
+        RuleFor(x => x.Description)
+            .NotEmpty().WithMessage("Description is required.");
+
+        RuleFor(x => x.Price)
+            .GreaterThan(0).WithMessage("Price must be greater than 0.");
+    }
+}
+
+internal class UpdateProductCommandHandler
     (IDocumentSession session, ILogger<UpdateProductCommandHandler> logger)
     : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
@@ -26,14 +44,13 @@ public class UpdateProductCommandHandler
         product.Update(
             command.Name,
             command.Description,
-            command.ImageFile, 
-            command.Price, 
+            command.ImageFile,
+            command.Price,
             command.Categories);
 
         session.Update(product);
         await session.SaveChangesAsync(cancellationToken);
 
         return new UpdateProductResult(product.Id);
-
     }
 }
