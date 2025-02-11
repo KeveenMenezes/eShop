@@ -1,6 +1,6 @@
 namespace Catalog.API.Products.DeleteProduct;
 
-public record DeleteProductCommand(Guid Id) 
+public record DeleteProductCommand(Guid Id)
     : ICommand<DeleteProductResult>;
 
 public record DeleteProductResult(bool IsSuccess);
@@ -15,13 +15,11 @@ public class DeleteProductCommandValitor : AbstractValidator<DeleteProductComman
 }
 
 internal class DeleteProductHandler
-    (IDocumentSession session, ILogger<DeleteProductHandler> logger)
+    (IDocumentSession session)
     : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {
     public async Task<DeleteProductResult> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Deleting product with id {Id}", request.Id);
-
         session.Delete<Product>(request.Id);
         await session.SaveChangesAsync(cancellationToken);
 

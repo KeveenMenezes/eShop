@@ -11,6 +11,7 @@ builder.Services
     {
         config.RegisterServicesFromAssembly(assembly);
         config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+        config.AddOpenBehavior(typeof(LoggingBehavior<,>));
     })
     .AddValidatorsFromAssembly(assembly)
     .AddMarten(opts =>
@@ -27,4 +28,3 @@ app.MapCarter();
 app.UseExceptionHandler(options => { });
 
 await app.RunAsync();
-
