@@ -1,8 +1,11 @@
+using BuildingBlocks.Exceptions.Handler;
+
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var assembly = typeof(Program).Assembly;
 builder.Services
+    .AddExceptionHandler<CustomExceptionHandler>()
     .AddCarter()
     .AddMediatR(config =>
     {
@@ -20,6 +23,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.MapCarter();
+
+app.UseExceptionHandler(options => { });
 
 await app.RunAsync();
 
